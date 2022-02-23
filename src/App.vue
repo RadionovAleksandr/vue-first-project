@@ -263,18 +263,6 @@ export default {
       return +price > 1 ? (+price).toFixed(2) : (+price).toPrecision(2);
     },
 
-    async updateTickers() {
-      // if (!this.tickers.length) {
-      //   return;
-      // }
-      // const exhangeData = await loaderTicker(this.tickers.map(t => t.name));
-      // console.log('exhangeData', exhangeData);
-      // this.tickers.forEach(ticker => {
-      //   const price = exhangeData[ticker.name.toUpperCase()];
-      //   ticker.price = price ?? '-';
-      // });
-    },
-
     handleDelete(tickerToRemove) {
       this.tickers = this.tickers.filter(t => t !== tickerToRemove);
       if (this.selectedTicker === tickerToRemove) {
@@ -317,7 +305,11 @@ export default {
 
     updateTicker(tickerName, price) {
       this.tickers.filter(t => t.name === tickerName)
-      .forEach(t => t.price = price);
+      .forEach(t => {
+        if (t === this.selectedTicker) {
+          this.graph.push(price);
+        }
+      });
     }
   },
 
