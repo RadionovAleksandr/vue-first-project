@@ -4,7 +4,6 @@ const AGREGATE_INDEX = "5";
 const tickersHandlers = new Map();
 const socket = new WebSocket(`wss://streamer.cryptocompare.com/v2?api_key=${API_KEY}`);
 socket.addEventListener("message", e => {
-  console.log(e);
   const { TYPE: type, FROMSYMBOL: currency, PRICE: newPrice } = JSON.parse(e.data);
   if (type !== AGREGATE_INDEX || newPrice === undefined) {
     return;
